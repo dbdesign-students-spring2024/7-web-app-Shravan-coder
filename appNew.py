@@ -12,11 +12,11 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 import pymongo
 from pymongo.errors import ConnectionFailure
 from bson.objectid import ObjectId
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
-load_dotenv(override=True)  # take environment variables from .env.
+# load_dotenv(override=True)  # take environment variables from .env.
 
 # initialize Sentry for help debugging... this requires an account on sentrio.io
 # you will need to set the SENTRY_DSN environment variable to the value provided by Sentry
