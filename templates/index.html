@@ -2,10 +2,10 @@
 
 {% block container %}
 <h2>Welcome!</h2>
-<p>Welcome to the Flask app. This is the home page. Here are a few links to example pages you might find interesting.
+<p>This is a show review website.
     <ul>
-        <li><a href="{{ url_for('read')}}">a page that displays information pulled from a MongoDB database collection</a></li>
-        <li><a href="{{ url_for('create')}}">a page with a form you can submit to create a new record in a MongoDB collection</a></li>
+        <li><a href="{{ url_for('read')}}">Our home page, with all the latest reviews</a></li>
+        <li><a href="{{ url_for('create')}}">A page where you can submit reviews to be posted on our website.</a></li>
     </ul>
 </p>
 {% endblock %}
