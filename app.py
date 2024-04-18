@@ -17,11 +17,11 @@ from sentry_sdk.integrations.flask import (
 import pymongo
 from pymongo.errors import ConnectionFailure
 from bson.objectid import ObjectId
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
-load_dotenv(override=True)  # take environment variables from .env.
+# load_dotenv(override=True)  # take environment variables from .env.
 
 # initialize Sentry for help debugging... this requires an account on sentrio.io
 # you will need to set the SENTRY_DSN environment variable to the value provided by Sentry
@@ -30,12 +30,11 @@ sentry_sdk.init(
     dsn=os.getenv("SENTRY_DSN"),
     # enable_tracing=True,
     # Set traces_sample_rate to 1.0 to capture 100% of transactions for performance monitoring.
-    traces_sample_rate=1.0,
+    #traces_sample_rate=1.0,
     # Set profiles_sample_rate to 1.0 to profile 100% of sampled transactions.
     # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
+    #profiles_sample_rate=1.0,
     integrations=[FlaskIntegration()],
-    traces_sample_rate=1.0,
     send_default_pii=True,
 )
 
@@ -48,10 +47,14 @@ app = Flask(__name__)
 # try to connect to the database, and quit if it doesn't work
 try:
     cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
+    # cxn = pymongo.MongoClient(os.getenv('MONGO_HOST'), 27017, 
+                                # username=os.getenv('MONGO_USER'),
+                                #password=os.getenv('MONGO_PASSWORD'),
+                                #authSource=os.getenv('MONGO_DBNAME'))
     db = cxn[os.getenv("MONGO_DBNAME")]  # store a reference to the selected database
 
     # verify the connection works by pinging the database
-    cxn.admin.command("ping")  # The ping command is cheap and does not require auth.
+    #cxn.admin.command("ping")  # The ping command is cheap and does not require auth.
     print(" * Connected to MongoDB!")  # if we get here, the connection worked!
 except ConnectionFailure as e:
     # catch any database errors
@@ -140,7 +143,7 @@ def edit_post(mongoid):
     message = request.form["fmessage"]
 
     doc = {
-        # "_id": ObjectId(mongoid),
+        "_id": ObjectId(mongoid),
         "name": name,
         "message": message,
         "created_at": datetime.datetime.utcnow(),
@@ -181,7 +184,7 @@ def webhook():
     # run a git pull command
     process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
     pull_output = process.communicate()[0]
-    # pull_output = str(pull_output).strip() # remove whitespace
+    pull_output = str(pull_output).strip() # remove whitespace
     process = subprocess.Popen(["chmod", "a+x", "flask.cgi"], stdout=subprocess.PIPE)
     chmod_output = process.communicate()[0]
     # send a success response
