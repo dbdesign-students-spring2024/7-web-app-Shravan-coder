@@ -30,10 +30,7 @@ app = Flask(__name__)
 
 # try to connect to the database, and quit if it doesn't work
 try:
-    cxn = pymongo.MongoClient(os.getenv('class-mongodb.cims.nyu.edu'), 27017, 
-                                username=os.getenv('sp7055'),
-                                password=os.getenv('Cx4fiZFN'),
-                                authSource=os.getenv('sp7055'))
+    cxn = pymongo.MongoClient(os.getenv("MONGO_URI"))
     db = cxn[os.getenv("MONGO_DBNAME")]  # store a reference to the selected database
 
     # verify the connection works by pinging the database
