@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block container %}
+<h2>Details</h2>
+<p>This page shows the details of the review.
+        <p>
+            <strong>Show:</strong> {{ docs.show }}<br>
+            <strong>Reviewer Name:</strong> {{ docs.name }}<br>
+            <strong>Rating:</strong> {{ docs.rating }}<br>
+            <strong>Review:</strong> {{ docs.review }}<br>
+    
+        </p>
+        <p>
+            <a href="{{ url_for('read')}}">Cancel</a>
+        </p>
+{% endblock %}
